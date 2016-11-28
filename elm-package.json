@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "summary": "helpful summary of your project, less than 80 characters",
+    "summary": "Composable sort-of lenses",
     "repository": "https://github.com/SwiftsNamesake/please-focus.git",
     "license": "BSD3",
     "source-directories": [

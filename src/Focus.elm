@@ -8,7 +8,7 @@ module Focus exposing (..)
 @docs Setter
 
 # Operators
-@docs compose, (=>), (.=), ($=)
+@docs compose, (=>), (.=), ($=), (&)
 
 -}
 
@@ -31,9 +31,14 @@ compose f g = \ap s -> f (g ap) s
 
 {-| Apply setter to constant value (TODO: Rename?) -}
 (.=) : Setter s t a b -> b -> s -> t
-(.=) f a s = f (always a) s
+(.=) f a = \ s -> f (always a) s
 
 
 {-| Apply setter to constant value (TODO: Rename?) -}
 ($=) : Setter s t a b -> (a -> b) -> s -> t
-($=) f g s = f g s
+($=) f g = \s -> f g s
+
+
+{-| Reverse type application -}
+(&) : a -> (a -> b) -> b
+(&) x f = f x

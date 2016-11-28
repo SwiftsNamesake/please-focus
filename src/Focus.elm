@@ -2,28 +2,22 @@
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 module Focus exposing (..)
+{-| Sort-of lenses
+
+# Types
+@docs Setter
+
+# Operators
+@docs compose, (=>), (.=), ($=)
+
+-}
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------------------------------------------------------------------
-
+{-| 'Setter's work by applying a function to a given field -}
 type alias Setter s t a b = (a -> b) -> s -> t
 
-type alias HasSize v n = {v|size : n}
-type alias HasX v n    = {v|x : n}
-
 --------------------------------------------------------------------------------------------------------------------------------------------
-
-{-| Sets 'size' -}
-setSize : Setter {v| size : n } {v| size : m } n m -- (n -> m) -> {v| size : n } -> {v| size : m }
-setSize f v = {v|size = f v.size}
-
-
-{-| Sets 'x' -}
-setX : Setter {v| x : n } {v| x : m } n m
-setX f v = {v|x = f v.x}
-
 
 {-| Compose two setters -}
 compose : Setter s t a b -> Setter a b c d -> Setter s t c d

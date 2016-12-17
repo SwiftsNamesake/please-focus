@@ -18,37 +18,40 @@ _multiple_ record fields.
 You may also define polymorphic lenses. Maybe we'll get back to that later.
 
 Enough chatter, let's define a lens!
-    import Focus exposing (..)
 
-    -- A seasonal data type
-    type alias Santa = {
-      bag  : List Gift,
-      home : Coordinates,
-      nickname : String
-    }
+```elm
+import Focus exposing (..)
 
-    -- Our lens
-    nickname : Setter Santa Santa String String
-    nickname f santa = {santa|nickname = f santa.nickname}
+-- A seasonal data type
+type alias Santa = {
+  bag  : List Gift,
+  home : Coordinates,
+  nickname : String
+}
 
-    -- Setter is a type alias for a kind of function:
-    type alias Setter s t a b = (a -> b) -> s -> t
+-- Our lens
+nickname : Setter Santa Santa String String
+nickname f santa = {santa|nickname = f santa.nickname}
 
-    -- As the name implies - and unlike proper lenses - it only supports setting values, not getting them.
-    -- Accessing nested fields is less of a hassle in Elm than it is in Haskell. Still, if I find a simple way
-    -- of unifying Setters and Getters, I may add a Lens type in the future.
+-- Setter is a type alias for a kind of function:
+type alias Setter s t a b = (a -> b) -> s -> t
 
-    -- Now that we have a Setter, we may use it to change Santa's name
-    santa = { bag = [], home = Coords (N 66), (E 25), nickname = "St Nick" }
+-- As the name implies - and unlike proper lenses - it only supports setting values, not getting them.
+-- Accessing nested fields is less of a hassle in Elm than it is in Haskell. Still, if I find a simple way
+-- of unifying Setters and Getters, I may add a Lens type in the future.
 
-    -- Setting the nickname to a new value
-    santa & nickname .= "Saint Nicholas"
+-- Now that we have a Setter, we may use it to change Santa's name
+santa = { bag = [], home = Coords (N 66), (E 25), nickname = "St Nick" }
 
-    -- Updating the nickname with a function
-    santa & nickname $= String.toUpper
+-- Setting the nickname to a new value
+santa & nickname .= "Saint Nicholas"
 
-    -- We may also combine two lenses with the 'compose' function,
-    -- or it's infix counterpart (=>)
-    santa & nickname=>first %= String.toLower
+-- Updating the nickname with a function
+santa & nickname $= String.toUpper
 
-    -- Defining 'first' is left as an exercise to the reader.
+-- We may also combine two lenses with the 'compose' function,
+-- or it's infix counterpart (=>)
+santa & nickname=>first %= String.toLower
+
+-- Defining 'first' is left as an exercise to the reader.
+```

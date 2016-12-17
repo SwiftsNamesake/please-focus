@@ -29,12 +29,12 @@ compose f g = \ap s -> f (g ap) s
 (=>) f g = compose f g
 
 
-{-| Apply setter to constant value (TODO: Rename?) -}
+{-| Set the focused item to a constant value (TODO: Rename?) -}
 (.=) : Setter s t a b -> b -> s -> t
 (.=) f a = \ s -> f (always a) s
 
 
-{-| Apply setter to constant value (TODO: Rename?) -}
+{-| Transform the focused value with a function (TODO: Rename?) -}
 ($=) : Setter s t a b -> (a -> b) -> s -> t
 ($=) f g = \s -> f g s
 

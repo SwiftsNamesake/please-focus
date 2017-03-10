@@ -41,7 +41,7 @@ type alias Setter s t a b = (a -> b) -> s -> t
 -- of unifying Setters and Getters, I may add a Lens type in the future.
 
 -- Now that we have a Setter, we may use it to change Santa's name
-santa = { bag = [], home = Coords (N 66), (E 25), nickname = "St Nick" }
+santa = { bag = [], home = Coords (N 66) (E 25), nickname = "St Nick" }
 
 -- Setting the nickname to a new value
 santa & nickname .= "Saint Nicholas"
@@ -50,8 +50,8 @@ santa & nickname .= "Saint Nicholas"
 santa & nickname $= String.toUpper
 
 -- We may also combine two lenses with the 'compose' function,
--- or it's infix counterpart (=>)
-santa & nickname=>first %= String.toLower
+-- or its infix counterpart (=>)
+santa & nickname=>first $= String.toLower
 
 -- Defining 'first' is left as an exercise to the reader.
 ```

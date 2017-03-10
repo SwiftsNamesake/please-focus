@@ -28,17 +28,23 @@ compose f g = \ap s -> f (g ap) s
 (=>) : Setter s t a b -> Setter a b c d -> Setter s t c d
 (=>) f g = compose f g
 
+infixr 7 =>
 
 {-| Set the focused item to a constant value (TODO: Rename?) -}
 (.=) : Setter s t a b -> b -> s -> t
 (.=) f a = \ s -> f (always a) s
 
+infixr 6 .=
 
 {-| Transform the focused value with a function (TODO: Rename?) -}
 ($=) : Setter s t a b -> (a -> b) -> s -> t
 ($=) f g = \s -> f g s
 
+infixr 6 $=
 
-{-| Reverse type application -}
+
+{-| Reverse function application -}
 (&) : a -> (a -> b) -> b
 (&) x f = f x
+
+infixr 5 &
